@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/* ─── Local Fonts ───────────────────────────────────── */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Phudu';
+  src: url('/fonts/Phudu-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Design Tokens ─────────────────────────────────── */
+:root {
+  /* Typography */
+  --font-phudu: 'Phudu', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  /* Brand */
+  --color-primary:       #335CFF;
+  --color-primary-dark:  #1A3FCC;
+
+  /* Neutrals */
+  --color-dark:          #171717;
+  --color-gray:          #5C5C5C;
+  --color-gray-mid:      #555555;
+  --color-gray-light:    #A4A4A4;
+  --color-border:        #E9E6E6;
+  --color-bg:            #FFFEFC;
+  --color-white:         #FFFEFC;
+
+  /* Essential plan — Blue */
+  --color-essential-outer:      #CAD3FB;
+  --color-essential-badge-bg:   #EDF0FF;
+  --color-essential-badge-text: #335CFF;
+  --color-essential-check:      #335CFF;
+
+  /* Advanced plan — Green */
+  --color-advanced-outer:      #C9F5DC;
+  --color-advanced-badge-bg:   #E4FDF0;
+  --color-advanced-badge-text: #15803D;
+  --color-advanced-check:      #16A34A;
+
+  /* Global plan — Purple */
+  --color-global-outer:      #E2D0FB;
+  --color-global-badge-bg:   #F3EAFF;
+  --color-global-badge-text: #7C3AED;
+  --color-global-check:      #9333EA;
+}
+
+/* ─── Base Reset ────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: none !important;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-inter);
+  /* Outer border color — matches Figma frame edge */
+  background-color: #E9E6E6;
+  color: var(--color-dark);
+  font-size: 18px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 22px;
+}
+
+/* Inner content card — white/cream + pinstripe, matches inner rect rx=20 */
+body > main {
+  background-color: #FFFEFC;
+  background-image: url('/Pinstripe.svg');
+  background-repeat: repeat;
+  background-size: auto;
+  border-radius: 20px;
+  min-height: calc(100vh - 44px);
+  overflow: hidden;
+}
