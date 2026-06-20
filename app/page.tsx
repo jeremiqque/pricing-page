@@ -783,6 +783,34 @@ function FAQSection() {
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(true)
 
+  const badgeRef    = useRef<HTMLDivElement>(null)
+  const h1Ref       = useRef<HTMLHeadingElement>(null)
+  const subtitleRef = useRef<HTMLParagraphElement>(null)
+  const toggleRef   = useRef<HTMLDivElement>(null)
+  const cardsRef    = useRef<HTMLDivElement>(null)
+  const footerRef   = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    const cards = cardsRef.current ? Array.from(cardsRef.current.children) : []
+
+    gsap.set(
+      [badgeRef.current, h1Ref.current, subtitleRef.current, toggleRef.current, footerRef.current],
+      { y: 20, opacity: 0 }
+    )
+    gsap.set(cards, { y: 48, opacity: 0 })
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+    tl
+      .to(badgeRef.current,    { y: 0, opacity: 1, duration: 0.5 },  0.1)
+      .to(h1Ref.current,       { y: 0, opacity: 1, duration: 0.65 }, 0.22)
+      .to(subtitleRef.current, { y: 0, opacity: 1, duration: 0.5 },  0.38)
+      .to(toggleRef.current,   { y: 0, opacity: 1, duration: 0.45 }, 0.5)
+      .to(cards,               { y: 0, opacity: 1, duration: 0.65, stagger: 0.12 }, 0.62)
+      .to(footerRef.current,   { y: 0, opacity: 1, duration: 0.4 },  1.1)
+
+    return () => { tl.kill() }
+  }, [])
+
   return (
     <>
     <CustomCursor />
@@ -800,7 +828,7 @@ export default function PricingPage() {
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
 
           {/* Plans & Pricing badge */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '14px' }}>
+          <div ref={badgeRef} style={{ display: 'flex', justifyContent: 'center', marginBottom: '14px' }}>
             <span
               style={{
                 display: 'inline-flex',
@@ -821,6 +849,7 @@ export default function PricingPage() {
           </div>
 
           <h1
+            ref={h1Ref}
             style={{
               fontFamily: 'var(--font-phudu)',
               fontSize: '60px',
@@ -839,6 +868,7 @@ export default function PricingPage() {
           </h1>
 
           <p
+            ref={subtitleRef}
             style={{
               fontFamily: 'var(--font-inter)',
               fontSize: '16px',
@@ -856,12 +886,12 @@ export default function PricingPage() {
         </div>
 
         {/* Billing Toggle */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '82px' }}>
+        <div ref={toggleRef} style={{ display: 'flex', justifyContent: 'center', marginBottom: '82px' }}>
           <BillingToggle isYearly={isYearly} onToggle={() => setIsYearly((v) => !v)} />
         </div>
 
         {/* Pricing Cards */}
-        <div className="cards-row">
+        <div ref={cardsRef} className="cards-row">
           {PLANS.map((plan) => (
             <PricingCard key={plan.id} plan={plan} isYearly={isYearly} />
           ))}
@@ -869,6 +899,7 @@ export default function PricingPage() {
 
         {/* Footer note */}
         <p
+          ref={footerRef}
           style={{
             textAlign: 'center',
             marginTop: '40px',
